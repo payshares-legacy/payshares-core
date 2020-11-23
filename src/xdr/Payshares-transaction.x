@@ -1,10 +1,10 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-%#include "generated/Stellar-ledger-entries.h"
+%#include "generated/Payshares-ledger-entries.h"
 
-namespace stellar
+namespace payshares
 {
 
 struct DecoratedSignature
@@ -27,7 +27,7 @@ enum OperationType
 /* Payment
 
     send an amount to a destination account, optionally through a path.
-    XLM payments create the destination account if it does not exist
+    XPS payments create the destination account if it does not exist
 
     Threshold: med
 

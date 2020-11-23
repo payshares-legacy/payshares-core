@@ -1,17 +1,17 @@
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "main/Config.h"
 #include "history/HistoryArchive.h"
-#include "generated/StellarCoreVersion.h"
+#include "generated/PaysharesCoreVersion.h"
 #include "lib/util/cpptoml.h"
 #include "util/Logging.h"
 #include "util/types.h"
 #include "crypto/Base58.h"
 
-namespace stellar
+namespace payshares
 {
 Config::Config() : PEER_KEY(SecretKey::random())
 {
@@ -34,7 +34,7 @@ Config::Config() : PEER_KEY(SecretKey::random())
     ARTIFICIALLY_PESSIMIZE_MERGES_FOR_TESTING = false;
     TARGET_PEER_CONNECTIONS = 20;
     MAX_PEER_CONNECTIONS = 50;
-    LOG_FILE_PATH = "stellar-core.log";
+    LOG_FILE_PATH = "payshares-core.log";
     TMP_DIR_PATH = "tmp";
     BUCKET_DIR_PATH = "buckets";
     QUORUM_THRESHOLD = 1000;

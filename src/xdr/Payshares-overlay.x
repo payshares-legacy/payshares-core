@@ -1,24 +1,24 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-%#include "generated/Stellar-ledger.h"
+%#include "generated/Payshares-ledger.h"
 
-namespace stellar
+namespace payshares
 {
 
-struct StellarBallotValue
+struct PaysharesBallotValue
 {
     Hash txSetHash;
     uint64 closeTime;
     uint32 baseFee;
 };
 
-struct StellarBallot
+struct PaysharesBallot
 {
     uint256 nodeID;
     Signature signature;
-    StellarBallotValue value;
+    PaysharesBallotValue value;
 };
 
 struct Error
@@ -68,7 +68,7 @@ struct DontHave
     uint256 reqHash;
 };
 
-union StellarMessage switch (MessageType type)
+union PaysharesMessage switch (MessageType type)
 {
 case ERROR_MSG:
     Error error;

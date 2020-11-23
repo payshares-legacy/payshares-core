@@ -1,5 +1,5 @@
 #What is a ledger?
-A ledger represents the state of the Stellar universe at a given point in time.
+A ledger represents the state of the Payshares universe at a given point in time.
 The first ledger in history is called the genesis ledger.
 
 Every SCP round, consensus decides on which transaction set to apply to the
@@ -23,7 +23,7 @@ behaves just like pointers in typical data structures but with added
 security guarantees.
 
 See the protocol file for the object definitions.
-src/xdr/Stellar-ledger.x
+src/xdr/Payshares-ledger.x
 
 One can think of the historical chain as a linked list of LedgerHeaders:
 
@@ -60,10 +60,10 @@ The leaf elements are what we call "Ledger Entries", this is the bulk of
 the data contained in a ledger.
 
 Ledger entries are specified in 
-src/xdr/Stellar-ledger-entries.x
+src/xdr/Payshares-ledger-entries.x
 
 ###AccountEntry
-This entry represents an account. In Stellar, everything is centered around
+This entry represents an account. In Payshares, everything is centered around
 accounts: transactions are performed by an account.
 
 Accounts control the access rights to balances.
@@ -82,7 +82,7 @@ the issuer (authorized flag for example).
 
 ###OfferEntry
 Offers are entries in the Order Book that an account creates.
-Offers are a way to automate simple trading inside the Stellar network.
+Offers are a way to automate simple trading inside the Payshares network.
 
 #Source code organization
 

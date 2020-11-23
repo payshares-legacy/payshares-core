@@ -1,10 +1,10 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "history/HistoryArchive.h"
 #include <functional>
 #include <memory>
@@ -45,14 +45,14 @@
  * store is a history archive state file (class HistoryArchiveState) which
  * stores the most recent checkpoint (including version info, most recent ledger
  * number and most recent bucket hashes). As per RFC 5785, this checkpoint is
- * stored at .well-known/stellar-history.json as a JSON file.
+ * stored at .well-known/payshares-history.json as a JSON file.
  *
  * Checkpoints are made every 64 ledgers, which (at 5s ledger close time) is
  * 320s or about 5m20s. There will be 11 checkpoints per hour, 270 per day, and
  * 98,550 per year. Counting checkpoints within a 32bit value gives 43,581 years
  * of service for the system.
  *
- * While the _most recent_ checkpoint is in .well-known/stellar-history.json,
+ * While the _most recent_ checkpoint is in .well-known/payshares-history.json,
  * each checkpoint is also stored permanently at a path whose name includes the
  * last ledger number in the checkpoint (as a 32-bit hex string) and stored in a
  * 3-level deep directory tree of hex digit prefixes. For example, checkpoint at
@@ -170,7 +170,7 @@ namespace asio
 typedef std::error_code error_code;
 };
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class Bucket;
@@ -224,7 +224,7 @@ class HistoryManager
     };
 
     // Initialize a named history archive by writing
-    // .well-known/stellar-history.json to it.
+    // .well-known/payshares-history.json to it.
     static bool initializeHistoryArchive(Application& app, std::string arch);
 
     // Check that config settings are at least somewhat reasonable.

@@ -1,4 +1,4 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -6,7 +6,7 @@
 #include "crypto/SHA.h"
 #include "crypto/Hex.h"
 #include "main/Application.h"
-#include "generated/StellarCoreVersion.h"
+#include "generated/PaysharesCoreVersion.h"
 #include "overlay/OverlayManager.h"
 #include "overlay/LoopbackPeer.h"
 #include "util/Logging.h"
@@ -27,17 +27,17 @@
  * It has two modes:
  *
  *   - In --genfuzz mode it spits out a small file containing a handful of
- *     random StellarMessages. This is the mode you use to generate seed data
+ *     random PaysharesMessages. This is the mode you use to generate seed data
  *     for the external fuzzer's corpus.
  *
  *   - In --fuzz mode it reads back a file and appplies it to a pair of of
- *     stellar-cores in loopback mode, cranking the I/O loop to simulate
+ *     payshares-cores in loopback mode, cranking the I/O loop to simulate
  *     receiving the messages one by one. It exits when it's read the input.
  *     This is the mode the external fuzzer will run its mutant inputs through.
  *
  */
 
-namespace stellar
+namespace payshares
 {
 
 struct
@@ -64,7 +64,7 @@ CfgDirGuard
 };
 
 std::string
-msgSummary(StellarMessage const& m)
+msgSummary(PaysharesMessage const& m)
 {
     xdr::detail::Printer p(0);
     xdr::archive(p, m.type(), nullptr);
@@ -72,7 +72,7 @@ msgSummary(StellarMessage const& m)
 }
 
 bool
-tryRead(XDRInputFileStream &in, StellarMessage &m)
+tryRead(XDRInputFileStream &in, PaysharesMessage &m)
 {
     try
     {
@@ -92,7 +92,7 @@ fuzz(std::string const& filename, el::Level logLevel,
 {
     Logging::setFmt("<fuzz>", false);
     Logging::setLogLevel(logLevel, nullptr);
-    LOG(INFO) << "Fuzzing stellar-core " << STELLAR_CORE_VERSION;
+    LOG(INFO) << "Fuzzing payshares-core " << STELLAR_CORE_VERSION;
     LOG(INFO) << "Fuzz input is in " << filename;
 
     Config cfg1, cfg2;
@@ -121,7 +121,7 @@ fuzz(std::string const& filename, el::Level logLevel,
 
     XDRInputFileStream in;
     in.open(filename);
-    StellarMessage msg;
+    PaysharesMessage msg;
     size_t i = 0;
     while (tryRead(in, msg))
     {
@@ -145,12 +145,12 @@ genfuzz(std::string const& filename)
     LOG(INFO) << "Writing " << n << "-message random fuzz file " << filename;
     XDROutputFileStream out;
     out.open(filename);
-    autocheck::generator<StellarMessage> gen;
+    autocheck::generator<PaysharesMessage> gen;
     for (size_t i = 0; i < n; ++i)
     {
         try
         {
-            StellarMessage m(gen(20));
+            PaysharesMessage m(gen(20));
             out.writeOne(m);
             LOG(INFO) << "Message " << i << ": " << msgSummary(m);
         }

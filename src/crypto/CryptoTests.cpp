@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,7 +14,7 @@
 #include <sodium.h>
 #include <map>
 
-using namespace stellar;
+using namespace payshares;
 
 static std::map<std::vector<uint8_t>, std::string> hexTestVectors = {
     {{}, ""},
@@ -98,7 +98,7 @@ TEST_CASE("Stateful SHA256 tests", "[crypto]")
     }
 }
 
-// Note: the fixed test vectors are based on the bitcoin alphabet; the stellar /
+// Note: the fixed test vectors are based on the bitcoin alphabet; the payshares /
 // ripple alphabet is a permutation of it. But these ought to test the algorithm
 // relatively well and have been cross-checked against several implementations
 // in different languages. There aren't a lot of independent implementations
@@ -183,13 +183,13 @@ TEST_CASE("base58 tests", "[crypto]")
         },
         20);
 
-    // Do 20 random round-trip tests on the stellar alphabet.
+    // Do 20 random round-trip tests on the payshares alphabet.
     autocheck::check<std::vector<uint8_t>>(
         [](std::vector<uint8_t> v)
         {
-            auto enc = baseEncode(stellarBase58Alphabet, v);
-            auto dec = baseDecode(stellarBase58Alphabet, enc);
-            LOG(DEBUG) << "random round-trip stellar base58: \"" << enc << "\"";
+            auto enc = baseEncode(paysharesBase58Alphabet, v);
+            auto dec = baseDecode(paysharesBase58Alphabet, enc);
+            LOG(DEBUG) << "random round-trip payshares base58: \"" << enc << "\"";
             CHECK(v == dec);
             return v == dec;
         },
@@ -227,14 +227,14 @@ TEST_CASE("base58check tests", "[crypto]")
         CHECK(pair.first == dec.second);
     }
 
-    // Do 20 random round-trip tests on the stellar alphabet.
+    // Do 20 random round-trip tests on the payshares alphabet.
     autocheck::check<std::vector<uint8_t>, uint8_t>(
         [](std::vector<uint8_t> bytes, uint8_t ver)
         {
             auto enc =
                 toBase58Check(static_cast<Base58CheckVersionByte>(ver), bytes);
             auto dec = fromBase58Check(enc);
-            LOG(DEBUG) << "random round-trip stellar base58check: \"" << enc
+            LOG(DEBUG) << "random round-trip payshares base58check: \"" << enc
                        << "\"";
             CHECK(ver == dec.first);
             CHECK(bytes == dec.second);

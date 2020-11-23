@@ -1,20 +1,20 @@
-# Stellar-core Overview
+# Payshares-core Overview
 
-Stellar is a decentralized, federated peer-to-peer network that allows people to
+Payshares is a decentralized, federated peer-to-peer network that allows people to
 send payments in any currency anywhere in the world instantaneously, and with
 minimal fee.
 
-`Stellar-core` is the core component of this network. `Stellar-core` is a C++
-implementation of the Stellar Consensus Protocol configured to construct a chain
+`Payshares-core` is the core component of this network. `Payshares-core` is a C++
+implementation of the Payshares Consensus Protocol configured to construct a chain
 of ledgers that are guaranteed to be in agreement across all the participating 
 nodes at all times.
 
-For more detail on the Stellar Consensus Protocol and how it establishes this
+For more detail on the Payshares Consensus Protocol and how it establishes this
 guarantee see [`src/scp/README.md`](../src/scp/readme.md). 
 
 ##Key Concepts
 
-- **Ledger**: A ledger is the state of the distributed Stellar database at a 
+- **Ledger**: A ledger is the state of the distributed Payshares database at a 
   particular point in time. It is composed of a set of _ledger entries_, 
   including (1) accounts and their balances, (2) buy and sell offers, (3) and 
   trust lines, as well as a _ledger header_ that records some additional meta 
@@ -27,7 +27,7 @@ guarantee see [`src/scp/README.md`](../src/scp/readme.md).
 
 - **Ledger header**: The ledger's header contains meta data about the ledger,
   including the hash of the previous ledger (thus recording the chain) and its 
-  own hash. (See [`src/xdr/Stellar-ledger.x`](../src/xdr/Stellar-ledger.x))
+  own hash. (See [`src/xdr/Payshares-ledger.x`](../src/xdr/Payshares-ledger.x))
 
 - **Transaction**: Making a payment, creating an offer and so forth. Anything
   that changes a ledger's entries is called a transaction.
@@ -36,7 +36,7 @@ guarantee see [`src/scp/README.md`](../src/scp/readme.md).
   produce the next one in the chain.
 
 
-`Stellar-core` maintains the content of the latest ledger and of the ledger
+`Payshares-core` maintains the content of the latest ledger and of the ledger
 chain in a number of different representations in order to satisfy competing
 performance needs.
 
@@ -65,7 +65,7 @@ performance needs.
 	concatenating all the entries, it is not the same value since the bucket 
 	list deduplicates changed entries incrementally.
 
- 4. Finally, `stellar-core` can be configured to upload detailed historical
+ 4. Finally, `payshares-core` can be configured to upload detailed historical
     records of all the transactions, including all or most of the ledgers'
     content, to persistent long-term storage. This record can be used to audit
     the full ledger chain's history, and is used to catch-up new nodes and nodes
@@ -80,14 +80,14 @@ There are a few major components of the system. Each component has a dedicated
 source directory and its own dedicated `readme.md`.
 
 
-* **SCP** is our implementation of the Stellar Consensus Protocol (SCP). This
+* **SCP** is our implementation of the Payshares Consensus Protocol (SCP). This
   component is fully abstracted from the rest of the system. It receives
   candidate black-box values and signals when these values have reached
   consensus by the network (called _externalizing_ a value) (See
   [`src/scp/readme.md`](../src/scp/readme.md)).
 
 * **Herder** is responsible for interfacing between SCP and the rest of
-  `stellar-core`. Herder provides SCP with concrete implementations of the
+  `payshares-core`. Herder provides SCP with concrete implementations of the
   methods SCP uses to communicate with peers, to compare values, to determine
   whether values contain valid signatures, and so forth. Herder often 
   accomplishes its tasks by delegating to other components 
@@ -158,7 +158,7 @@ This directory contains the following additional documentation:
 * [testnet.md](/docs/testnet.md) is short tutorial demonstrating how to 
   configure and run a short-lived, isolated test network.
 
-* [architecture.md](/docs/architecture.md) describes how `stellar-core` is
+* [architecture.md](/docs/architecture.md) describes how `payshares-core` is
   structured internally, how it is intended to be deployed and the collection of
   servers and services needed to get the full functionality and performance.
 

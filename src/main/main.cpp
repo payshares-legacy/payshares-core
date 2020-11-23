@@ -1,9 +1,9 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 #include "util/asio.h"
 #include "main/Application.h"
-#include "generated/StellarCoreVersion.h"
+#include "generated/PaysharesCoreVersion.h"
 #include "util/Logging.h"
 #include "util/Timer.h"
 #include "util/Fs.h"
@@ -22,7 +22,7 @@
 
 _INITIALIZE_EASYLOGGINGPP
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -44,7 +44,7 @@ enum opttag
     OPT_NEWHIST
 };
 
-static const struct option stellar_core_options[] = {
+static const struct option payshares_core_options[] = {
     {"version", no_argument, nullptr, OPT_VERSION},
     {"help", no_argument, nullptr, OPT_HELP},
     {"test", no_argument, nullptr, OPT_TEST},
@@ -64,7 +64,7 @@ static void
 usage(int err = 1)
 {
     std::ostream& os = err ? std::cerr : std::cout;
-    os << "usage: stellar-core [OPTIONS]\n"
+    os << "usage: payshares-core [OPTIONS]\n"
           "where OPTIONS can be any of:\n"
           "      --help          To display this string\n"
           "      --version       To print version information\n"
@@ -75,16 +75,16 @@ usage(int err = 1)
           "ledger\n"
           "      --newhist ARCH  Initialize the named history archive ARCH\n"
           "      --forcescp      When true, forces SCP to start with the local "
-          "ledger as position, close next time stellar-core is run\n"
+          "ledger as position, close next time payshares-core is run\n"
           "      --genseed       Generate and print a random node seed\n"
           "      --genfuzz FILE  Generate a random fuzzer input file\n "
           "      --ll LEVEL      Set the log level. (redundant with --c ll but "
           "you need this form for the tests.)\n"
           "                      LEVEL can be:\n"
-          "      --c             Command to send to local stellar-core. try "
+          "      --c             Command to send to local payshares-core. try "
           "'--c help' for more information\n"
           "      --conf FILE     To specify a config file ('-' for STDIN, "
-          "default 'stellar-core.cfg')\n";
+          "default 'payshares-core.cfg')\n";
     exit(err);
 }
 
@@ -189,7 +189,7 @@ initializeHistories(Config& cfg, vector<string> newHistories)
 int
 startApp(string cfgFile, Config& cfg)
 {
-    LOG(INFO) << "Starting stellar-core " << STELLAR_CORE_VERSION;
+    LOG(INFO) << "Starting payshares-core " << STELLAR_CORE_VERSION;
     LOG(INFO) << "Config from " << cfgFile;
     VirtualClock clock(VirtualClock::REAL_TIME);
     Application::pointer app = Application::create(clock, cfg);
@@ -228,12 +228,12 @@ startApp(string cfgFile, Config& cfg)
 int
 main(int argc, char* const* argv)
 {
-    using namespace stellar;
+    using namespace payshares;
 
     sodium_init();
     Logging::init();
 
-    std::string cfgFile("stellar-core.cfg");
+    std::string cfgFile("payshares-core.cfg");
     std::string command;
     el::Level logLevel = el::Level::Info;
     std::vector<char*> rest;
@@ -244,7 +244,7 @@ main(int argc, char* const* argv)
     std::vector<std::string> metrics;
 
     int opt;
-    while ((opt = getopt_long_only(argc, argv, "", stellar_core_options,
+    while ((opt = getopt_long_only(argc, argv, "", payshares_core_options,
                                    nullptr)) != -1)
     {
         switch (opt)

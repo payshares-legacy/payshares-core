@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{916B91AB-A300-422C-B9C2-D683924DC109}</ProjectGuid>
-    <RootNamespace>stellar-core</RootNamespace>
+    <RootNamespace>payshares-core</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -74,7 +74,7 @@
       <Message>XDR</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Inputs>../../src/generated/StellarXDR.h</Inputs>
+      <Inputs>../../src/generated/PaysharesXDR.h</Inputs>
       <Command>@echo XDR &gt; $(IntermediateOutputPath)\xdrgen.stamp</Command>
       <Message>XDR check</Message>
       <Outputs>$(IntermediateOutputPath)\xdrgen.stamp</Outputs>
@@ -126,7 +126,7 @@
       <Message>XDR</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Inputs>../../src/generated/StellarXDR.h</Inputs>
+      <Inputs>../../src/generated/PaysharesXDR.h</Inputs>
       <Command>@echo XDR &gt; $(IntermediateOutputPath)\xdrgen.stamp</Command>
       <Message>XDR check</Message>
       <Outputs>$(IntermediateOutputPath)\xdrgen.stamp</Outputs>
@@ -297,7 +297,7 @@
     <ClInclude Include="..\..\src\crypto\SHA.h" />
     <ClInclude Include="..\..\src\crypto\SecretKey.h" />
     <ClInclude Include="..\..\src\database\Database.h" />
-    <ClInclude Include="..\..\src\generated\StellarXDR.h" />
+    <ClInclude Include="..\..\src\generated\PaysharesXDR.h" />
     <ClInclude Include="..\..\src\herder\HerderImpl.h" />
     <ClInclude Include="..\..\src\herder\Herder.h" />
     <ClInclude Include="..\..\src\herder\PendingEnvelopes.h" />
@@ -392,25 +392,25 @@
     <None Include="..\..\docs\architecture.md" />
     <None Include="..\..\docs\design.md" />
     <None Include="..\..\docs\readme.md" />
-    <None Include="..\..\docs\stellar-core_example.cfg" />
+    <None Include="..\..\docs\payshares-core_example.cfg" />
     <None Include="..\..\docs\testnet.md" />
     <None Include="..\..\INSTALL" />
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\NEWS" />
-    <CustomBuild Include="..\..\src\overlay\StellarXDR.x">
+    <CustomBuild Include="..\..\src\overlay\PaysharesXDR.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/StellarXDR.h ../../src/overlay/StellarXDR.x
-$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/StellarXDR.h ../../src/overlay/StellarXDR.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/PaysharesXDR.h ../../src/overlay/PaysharesXDR.x
+$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/PaysharesXDR.h ../../src/overlay/PaysharesXDR.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/StellarXDR.h</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/StellarXDR.h ../../src/overlay/StellarXDR.x
-$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/StellarXDR.h ../../src/overlay/StellarXDR.x</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/PaysharesXDR.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/PaysharesXDR.h ../../src/overlay/PaysharesXDR.x
+$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/PaysharesXDR.h ../../src/overlay/PaysharesXDR.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/StellarXDR.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/PaysharesXDR.h</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/overlay/StellarXDR.x;../../src/generated/SCPXDR.h;../../src/generated/Stellar-types.h;../../src/generated/Stellar-ledger-entries.h;../../src/generated/Stellar-transaction.h;../../src/generated/Stellar-ledger.h;../../src/generated/Stellar-overlay.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/overlay/StellarXDR.x;../../src/generated/SCPXDR.h;../../src/generated/Stellar-types.h;../../src/generated/Stellar-ledger-entries.h;../../src/generated/Stellar-transaction.h;../../src/generated/Stellar-ledger.h;../../src/generated/Stellar-overlay.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/overlay/PaysharesXDR.x;../../src/generated/SCPXDR.h;../../src/generated/Payshares-types.h;../../src/generated/Payshares-ledger-entries.h;../../src/generated/Payshares-transaction.h;../../src/generated/Payshares-ledger.h;../../src/generated/Payshares-overlay.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/overlay/PaysharesXDR.x;../../src/generated/SCPXDR.h;../../src/generated/Payshares-types.h;../../src/generated/Payshares-ledger-entries.h;../../src/generated/Payshares-transaction.h;../../src/generated/Payshares-ledger.h;../../src/generated/Payshares-overlay.h</AdditionalInputs>
     </CustomBuild>
     <None Include="..\..\README.md" />
     <None Include="..\..\src\bucket\readme.md" />
@@ -420,60 +420,60 @@ $(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/S
     <None Include="..\..\src\history\readme.md" />
     <None Include="..\..\src\ledger\readme.md" />
     <None Include="..\..\src\lib\xdrpp\tests\xdrtest.x" />
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-ledger.h ../../src/xdr/Stellar-ledger.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-ledger.h ../../src/xdr/Stellar-ledger.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-ledger.h ../../src/xdr/Payshares-ledger.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-ledger.h ../../src/xdr/Payshares-ledger.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Stellar-ledger.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Stellar-ledger.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Stellar-ledger.x;../../src/generated/Stellar-transaction.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Stellar-ledger.x;../../src/generated/Stellar-transaction.h</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Payshares-ledger.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Payshares-ledger.h</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Payshares-ledger.x;../../src/generated/Payshares-transaction.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Payshares-ledger.x;../../src/generated/Payshares-transaction.h</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-transaction.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-transaction.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-transaction.h ../../src/xdr/Stellar-transaction.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-transaction.h ../../src/xdr/Stellar-transaction.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-transaction.h ../../src/xdr/Payshares-transaction.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-transaction.h ../../src/xdr/Payshares-transaction.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Stellar-transaction.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Stellar-transaction.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Stellar-transaction.x;../../src/generated/Stellar-ledger-entries.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Stellar-transaction.x;../../src/generated/Stellar-ledger-entries.h</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Payshares-transaction.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Payshares-transaction.h</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Payshares-transaction.x;../../src/generated/Payshares-ledger-entries.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Payshares-transaction.x;../../src/generated/Payshares-ledger-entries.h</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-types.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-types.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-types.h ../../src/xdr/Stellar-types.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-types.h ../../src/xdr/Stellar-types.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-types.h ../../src/xdr/Payshares-types.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-types.h ../../src/xdr/Payshares-types.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Stellar-types.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Stellar-types.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Stellar-types.x;../../src/generated/SCPXDR.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Stellar-types.x;../../src/generated/SCPXDR.h</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Payshares-types.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Payshares-types.h</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Payshares-types.x;../../src/generated/SCPXDR.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Payshares-types.x;../../src/generated/SCPXDR.h</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-overlay.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-overlay.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-overlay.h ../../src/xdr/Stellar-overlay.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-overlay.h ../../src/xdr/Stellar-overlay.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-overlay.h ../../src/xdr/Payshares-overlay.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-overlay.h ../../src/xdr/Payshares-overlay.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Stellar-overlay.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Stellar-overlay.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Stellar-overlay.x;../../src/generated/Stellar-ledger.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Stellar-overlay.x;../../src/generated/Stellar-ledger.h</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Payshares-overlay.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Payshares-overlay.h</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Payshares-overlay.x;../../src/generated/Payshares-ledger.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Payshares-overlay.x;../../src/generated/Payshares-ledger.h</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger-entries.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger-entries.x">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-ledger-entries.h ../../src/xdr/Stellar-ledger-entries.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Stellar-ledger-entries.h ../../src/xdr/Stellar-ledger-entries.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-ledger-entries.h ../../src/xdr/Payshares-ledger-entries.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -o ../../src/generated/Payshares-ledger-entries.h ../../src/xdr/Payshares-ledger-entries.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Stellar-ledger-entries.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Stellar-ledger-entries.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Stellar-ledger-entries.x;../../src/generated/Stellar-types.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Stellar-ledger-entries.x;../../src/generated/Stellar-types.h</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/generated/Payshares-ledger-entries.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/generated/Payshares-ledger-entries.h</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../src/xdr/Payshares-ledger-entries.x;../../src/generated/Payshares-types.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/xdr/Payshares-ledger-entries.x;../../src/generated/Payshares-types.h</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\..\src\scp\SCPXDR.x">
       <FileType>Document</FileType>

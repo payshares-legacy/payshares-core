@@ -1,13 +1,13 @@
 ## -*- fill-column: 30; -*-
 ## Process this file with automake to produce Makefile.in
 
-# Copyright 2015 Stellar Development Foundation and contributors. Licensed
+# Copyright 2015 Payshares Development Foundation and contributors. Licensed
 # under the Apache License, Version 2.0. See the COPYING file at the root
 # of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 SUBDIRS =
 noinst_LTLIBRARIES = libsoci.la
-bin_PROGRAMS = bin/stellar-core
+bin_PROGRAMS = bin/payshares-core
 
 FMT_SRCS =                                      \
     src/bucket/Bucket.cpp                       \
@@ -186,11 +186,11 @@ FMT_HDRS =                                      \
     src/util/optional.h                         \
     src/util/types.h
 
-BUILT_SOURCES = src/generated/StellarCoreVersion.h                              \
-                src/generated/StellarXDR.h                                      \
+BUILT_SOURCES = src/generated/PaysharesCoreVersion.h                              \
+                src/generated/PaysharesXDR.h                                      \
                 src/generated/SCPXDR.h
 
-bin_stellar_core_SOURCES =                      \
+bin_payshares_core_SOURCES =                      \
     $(FMT_SRCS)                                 \
     $(BUILT_SOURCES)                            \
     src/lib/util/getopt_long.c                  \
@@ -205,7 +205,7 @@ bin_stellar_core_SOURCES =                      \
     src/lib/http/server.cpp                     \
     src/lib/asio/src/asio.cpp
 
-bin_stellar_core_CPPFLAGS =                         \
+bin_payshares_core_CPPFLAGS =                         \
     $(libsodium_CFLAGS)                             \
     $(xdrpp_CFLAGS)                                 \
     $(sqlite_CFLAGS)                                \
@@ -223,7 +223,7 @@ bin_stellar_core_CPPFLAGS =                         \
     -I$(srcdir)/src/lib/soci/src/core               \
     -I$(srcdir)/src/lib/soci/src/backends/sqlite3
 
-bin_stellar_core_LDADD =                        \
+bin_payshares_core_LDADD =                        \
     libsoci.la                                  \
     $(libsodium_LIBS)                           \
     $(xdrpp_LIBS)                               \
@@ -231,12 +231,12 @@ bin_stellar_core_LDADD =                        \
     $(libpq_LIBS)                               \
     $(libmedida_LIBS)
 
-bin_stellar_core_DEPENDENCIES =
+bin_payshares_core_DEPENDENCIES =
 
 if LIBSODIUM_INTERNAL
 LIBSODIUM_DIR=src/lib/libsodium
 LIBSODIUM=$(top_builddir)/$(LIBSODIUM_DIR)/src/libsodium/libsodium.la
-bin_stellar_core_LDADD += $(LIBSODIUM)
+bin_payshares_core_LDADD += $(LIBSODIUM)
 SUBDIRS += $(LIBSODIUM_DIR)
 $(LIBSODIUM):
 	$(MAKE) -C $(top_builddir)/$(LIBSODIUM_DIR)
@@ -246,8 +246,8 @@ if SQLITE_INTERNAL
 noinst_LTLIBRARIES += libsqlite.la
 libsqlite_la_SOURCES = src/lib/sqlite/sqlite3.c src/lib/sqlite/sqlite3.h
 libsqlite_la_CPPFLAGS = -I$(srcdir)/src/lib/sqlite -DSQLITE_OMIT_LOAD_EXTENSION
-bin_stellar_core_DEPENDENCIES += libsqlite.la
-bin_stellar_core_LDADD += libsqlite.la
+bin_payshares_core_DEPENDENCIES += libsqlite.la
+bin_payshares_core_LDADD += libsqlite.la
 endif
 
 libsoci_la_CPPFLAGS = -I$(srcdir)/src/lib/soci/src/core \
@@ -279,7 +279,7 @@ libsoci_la_SOURCES = src/lib/soci/src/backends/sqlite3/standard-use-type.cpp    
     src/lib/soci/src/core/procedure.cpp src/lib/soci/src/core/use-type.cpp
 
 if USE_POSTGRES
-bin_stellar_core_CPPFLAGS += -DUSE_POSTGRES
+bin_payshares_core_CPPFLAGS += -DUSE_POSTGRES
 libsoci_la_CPPFLAGS += -I$(srcdir)/src/lib/soci/src/backends/postgresql \
                          $(libpq_CFLAGS)
 
@@ -300,7 +300,7 @@ endif
 if XDRPP_INTERNAL
 XDRPP_DIR=src/lib/xdrpp
 XDRPP=$(top_builddir)/$(XDRPP_DIR)/xdrpp/libxdrpp.a
-bin_stellar_core_LDADD += $(XDRPP)
+bin_payshares_core_LDADD += $(XDRPP)
 SUBDIRS += $(XDRPP_DIR)
 $(XDRC) $(XDRPP):
 	$(MAKE) -C $(top_builddir)/$(XDRPP_DIR)
@@ -349,13 +349,13 @@ libmedida_la_SOURCES = src/lib/libmedida/src/medida/metered_interface.h         
     src/lib/libmedida/src/medida/sampling_interface.h                           \
     src/lib/libmedida/src/medida/timer.cc
 libmedida_la_CPPFLAGS = -I$(srcdir)/src/lib/libmedida/src
-bin_stellar_core_DEPENDENCIES += libmedida.la
-bin_stellar_core_LDADD += libmedida.la
+bin_payshares_core_DEPENDENCIES += libmedida.la
+bin_payshares_core_LDADD += libmedida.la
 endif
 
 CLEANFILES = $(BUILT_SOURCES)
 GITDIR = $(top_srcdir)/.git
-src/generated/StellarCoreVersion.h: Makefile
+src/generated/PaysharesCoreVersion.h: Makefile
 	$(AM_V_GEN)mkdir -p src/generated; \
     if test -d "$(GITDIR)"; then                                            \
       (VERS="$$(GIT_DIR=$(GITDIR) git describe --always --dirty --tags)" && \
@@ -364,27 +364,27 @@ src/generated/StellarCoreVersion.h: Makefile
        echo "#define STELLAR_CORE_VERSION \"unknown\"" >$@;                     \
     fi
 
-src/generated/Stellar-types.h: src/xdr/Stellar-types.x src/generated/SCPXDR.h Makefile $(XDRC)
+src/generated/Payshares-types.h: src/xdr/Payshares-types.x src/generated/SCPXDR.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
-src/generated/Stellar-overlay.h: src/xdr/Stellar-overlay.x src/generated/Stellar-ledger.h Makefile $(XDRC)
+src/generated/Payshares-overlay.h: src/xdr/Payshares-overlay.x src/generated/Payshares-ledger.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
-src/generated/Stellar-ledger-entries.h: src/xdr/Stellar-ledger-entries.x src/generated/Stellar-types.h Makefile $(XDRC)
+src/generated/Payshares-ledger-entries.h: src/xdr/Payshares-ledger-entries.x src/generated/Payshares-types.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
-src/generated/Stellar-transaction.h: src/xdr/Stellar-transaction.x src/generated/Stellar-ledger-entries.h Makefile $(XDRC)
+src/generated/Payshares-transaction.h: src/xdr/Payshares-transaction.x src/generated/Payshares-ledger-entries.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
-src/generated/Stellar-ledger.h: src/xdr/Stellar-ledger.x src/generated/Stellar-transaction.h Makefile $(XDRC)
+src/generated/Payshares-ledger.h: src/xdr/Payshares-ledger.x src/generated/Payshares-transaction.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
-src/generated/StellarXDR.h: src/overlay/StellarXDR.x src/generated/Stellar-overlay.h Makefile $(XDRC)
+src/generated/PaysharesXDR.h: src/overlay/PaysharesXDR.x src/generated/Payshares-overlay.h Makefile $(XDRC)
 	$(AM_V_GEN)mkdir -p src/generated; \
 	$(XDRC) -hh -o $@ $<
 
@@ -398,25 +398,25 @@ format:
 endif
 
 if USE_AFL_FUZZ
-fuzz-testcases: bin/stellar-core
+fuzz-testcases: bin/payshares-core
 	mkdir -p fuzz-testcases
-	for i in `seq 1 10`; do bin/stellar-core --genfuzz fuzz-testcases/fuzz$$i.xdr; done
+	for i in `seq 1 10`; do bin/payshares-core --genfuzz fuzz-testcases/fuzz$$i.xdr; done
 
-fuzz: fuzz-testcases bin/stellar-core
+fuzz: fuzz-testcases bin/payshares-core
 	mkdir -p fuzz-findings
-	afl-fuzz -m 8000 -i fuzz-testcases -o fuzz-findings bin/stellar-core --fuzz @@
+	afl-fuzz -m 8000 -i fuzz-testcases -o fuzz-findings bin/payshares-core --fuzz @@
 
 fuzz-clean:
 	rm -Rf fuzz-testcases fuzz-findings
 endif
 
-TESTS=test/selftest-stellar-core
+TESTS=test/selftest-payshares-core
 
 @VALGRIND_CHECK_RULES@
 VALGRIND_FLAGS = --num-callers=30 --trace-children=yes \
           --trace-children-skip=hostname,aws,gcutil,gcloud,azure,node,python
-VALGRIND_SUPPRESSIONS_FILES = stellar-core.supp
-EXTRA_DIST = stellar-core.supp
+VALGRIND_SUPPRESSIONS_FILES = payshares-core.supp
+EXTRA_DIST = payshares-core.supp
 MOSTLYCLEANFILES =
 
 maintainer-clean-local:

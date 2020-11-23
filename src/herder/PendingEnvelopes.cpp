@@ -3,7 +3,7 @@
 #include "herder/HerderImpl.h"
 #include "crypto/Hex.h"
 
-namespace stellar
+namespace payshares
 {
 
 PendingEnvelopes::PendingEnvelopes(Application &app, HerderImpl &herder) :

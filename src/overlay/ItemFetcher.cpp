@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -8,17 +8,17 @@
 #include "util/Logging.h"
 #include "medida/metrics_registry.h"
 #include "herder/TxSetFrame.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include <crypto/Hex.h>
 
 // TODO.1 I think we need to add something that after some time it retries to
 // fetch qsets that it really needs.
-// (https://github.com/stellar/stellar-core/issues/81)
+// (https://github.com/payshares/payshares-core/issues/81)
 /*
 
 */
 
-namespace stellar
+namespace payshares
 {
 
 template<class T, class TrackerT>

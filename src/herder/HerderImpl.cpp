@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +27,7 @@
 
 #define MAX_SLOTS_TO_REMEMBER 4
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<Herder>
@@ -139,11 +139,11 @@ HerderImpl::bootstrap()
 
     // setup a sufficient state that we can participate in consensus
     auto const& lcl = mLedgerManager.getLastClosedLedgerHeader();
-    StellarBallot b;
+    PaysharesBallot b;
     b.value.txSetHash = lcl.header.txSetHash;
     b.value.closeTime = lcl.header.closeTime;
     b.value.baseFee = mApp.getConfig().DESIRED_BASE_FEE;
-    signStellarBallot(b);
+    signPaysharesBallot(b);
     mTrackingSCP = make_unique<ConsensusData>(lcl.header.ledgerSeq, b);
     mLedgerManager.setState(LedgerManager::LM_SYNCED_STATE);
 
@@ -156,7 +156,7 @@ HerderImpl::validateValue(uint64 const& slotIndex, uint256 const& nodeID,
                           Value const& value,
                           std::function<void(bool)> const& cb)
 {
-    StellarBallot b;
+    PaysharesBallot b;
     try
     {
         xdr::xdr_from_opaque(value, b);
@@ -168,9 +168,9 @@ HerderImpl::validateValue(uint64 const& slotIndex, uint256 const& nodeID,
         return;
     }
 
-    // First of all let's verify the internal Stellar Ballot signature is
+    // First of all let's verify the internal Payshares Ballot signature is
     // correct.
-    if (!verifyStellarBallot(b))
+    if (!verifyPaysharesBallot(b))
     {
         mValueInvalid.Mark();
         cb(false);
@@ -297,8 +297,8 @@ HerderImpl::compareValues(uint64 const& slotIndex, uint32 const& ballotCounter,
     else if (!v2.size())
         return 1;
 
-    StellarBallot b1;
-    StellarBallot b2;
+    PaysharesBallot b1;
+    PaysharesBallot b2;
     try
     {
         xdr::xdr_from_opaque(v1, b1);
@@ -318,10 +318,10 @@ HerderImpl::compareValues(uint64 const& slotIndex, uint32 const& ballotCounter,
         return 0;
     }
 
-    // Unverified StellarBallot shouldn't be possible either for the precise
+    // Unverified PaysharesBallot shouldn't be possible either for the precise
     // same reasons.
-    assert(verifyStellarBallot(b1));
-    assert(verifyStellarBallot(b2));
+    assert(verifyPaysharesBallot(b1));
+    assert(verifyPaysharesBallot(b2));
 
     // Ordering is based on H(slotIndex, ballotCounter, nodeID). Such that the
     // round king value gets privileged over other values. Given the hash
@@ -358,7 +358,7 @@ HerderImpl::validateBallot(uint64 const& slotIndex, uint256 const& nodeID,
                            SCPBallot const& ballot,
                            std::function<void(bool)> const& cb)
 {
-    StellarBallot b;
+    PaysharesBallot b;
     try
     {
         xdr::xdr_from_opaque(ballot.value, b);
@@ -561,7 +561,7 @@ HerderImpl::valueExternalized(uint64 const& slotIndex, Value const& value)
     updateSCPCounters();
     mValueExternalize.Mark();
     mBumpTimer.cancel();
-    StellarBallot b;
+    PaysharesBallot b;
     try
     {
         xdr::xdr_from_opaque(value, b);
@@ -569,10 +569,10 @@ HerderImpl::valueExternalized(uint64 const& slotIndex, Value const& value)
     catch (...)
     {
         // This may not be possible as all messages are validated and should
-        // therefore contain a valid StellarBallot.
+        // therefore contain a valid PaysharesBallot.
         CLOG(ERROR, "Herder") << "HerderImpl::valueExternalized"
                               << "@" << hexAbbrev(getLocalNodeID())
-                              << " Externalized StellarBallot malformed";
+                              << " Externalized PaysharesBallot malformed";
     }
 
     auto txSetHash = b.value.txSetHash;
@@ -626,7 +626,7 @@ HerderImpl::valueExternalized(uint64 const& slotIndex, Value const& value)
         assert(mReceivedTransactions.size() >= 2);
         for (auto& tx : mReceivedTransactions[1])
         {
-            auto msg = tx->toStellarMessage();
+            auto msg = tx->toPaysharesMessage();
             mApp.getOverlayManager().broadcastMessage(msg);
         }
 
@@ -784,7 +784,7 @@ HerderImpl::emitEnvelope(SCPEnvelope const& envelope)
     }
     else
     {
-        StellarMessage msg;
+        PaysharesMessage msg;
         msg.type(SCP_MESSAGE);
         msg.envelope() = envelope;
         mApp.getOverlayManager().broadcastMessage(msg, false);
@@ -1115,11 +1115,11 @@ HerderImpl::triggerNextLedger(uint32_t ledgerSeqToTrigger)
         nextCloseTime = lcl.header.closeTime + 1;
     }
 
-    StellarBallot b;
+    PaysharesBallot b;
     b.value.txSetHash = txSetHash;
     b.value.closeTime = nextCloseTime;
     b.value.baseFee = mApp.getConfig().DESIRED_BASE_FEE;
-    signStellarBallot(b);
+    signPaysharesBallot(b);
 
     mCurrentValue = xdr::xdr_to_opaque(b);
 
@@ -1156,7 +1156,7 @@ HerderImpl::expireBallot(uint64 const& slotIndex, SCPBallot const& ballot)
 }
 
 void
-HerderImpl::signStellarBallot(StellarBallot& b)
+HerderImpl::signPaysharesBallot(PaysharesBallot& b)
 {
     mBallotSign.Mark();
     b.nodeID = getSecretKey().getPublicKey();
@@ -1164,7 +1164,7 @@ HerderImpl::signStellarBallot(StellarBallot& b)
 }
 
 bool
-HerderImpl::verifyStellarBallot(StellarBallot const& b)
+HerderImpl::verifyPaysharesBallot(PaysharesBallot const& b)
 {
     auto v = PublicKey::verifySig(b.nodeID, b.signature,
                                   xdr::xdr_to_opaque(b.value));

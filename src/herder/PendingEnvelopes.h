@@ -9,7 +9,7 @@
 #include "overlay/ItemFetcher.h"
 #include "lib/json/json.h"
 
-namespace stellar
+namespace payshares
 {
     
 class HerderImpl;

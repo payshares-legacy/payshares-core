@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 #include "main/Application.h"
@@ -17,16 +17,16 @@
 #include "transactions/PaymentOpFrame.h"
 #include "transactions/ChangeTrustOpFrame.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
 
-// *XLM Payment
+// *XPS Payment
 // *Credit Payment
-// XLM -> Credit Payment
-// Credit -> XLM Payment
-// Credit -> XLM -> Credit Payment
+// XPS -> Credit Payment
+// Credit -> XPS Payment
+// Credit -> XPS -> Credit Payment
 // Credit -> Credit -> Credit -> Credit Payment
 // path payment where there isn't enough in the path
 // path payment with a transfer rate
@@ -44,7 +44,7 @@ TEST_CASE("payment", "[tx][payment]")
     SecretKey a1 = getAccount("A");
     SecretKey b1 = getAccount("B");
 
-    Currency xlmCur;
+    Currency xpsCur;
 
     int64_t txfee = app.getLedgerManager().getTxFee();
 
@@ -102,7 +102,7 @@ TEST_CASE("payment", "[tx][payment]")
             (100000000000000000 - paymentAmount - gatewayPayment - txfee * 2));
 
     LedgerDelta delta(app.getLedgerManager().getCurrentLedgerHeader());
-    SECTION("send XLM to an existing account")
+    SECTION("send XPS to an existing account")
     {
         applyPaymentTx(app, root, a1, rootSeq++, morePayment);
 
@@ -130,7 +130,7 @@ TEST_CASE("payment", "[tx][payment]")
                 (rootAccount.getBalance() - txfee));
     }
 
-    SECTION("send too little XLM to new account (below reserve)")
+    SECTION("send too little XPS to new account (below reserve)")
     {
         applyPaymentTx(
             app, root, b1, rootSeq++,
@@ -189,12 +189,12 @@ TEST_CASE("payment", "[tx][payment]")
     }
     SECTION("payment through path")
     {
-        SECTION("send XLM with path (not enough offers)")
+        SECTION("send XPS with path (not enough offers)")
         {
             std::vector<Currency> path;
             path.push_back(idrCur);
 
-            applyCreditPaymentTx(app, gateway, a1, xlmCur, gateway_seq++,
+            applyCreditPaymentTx(app, gateway, a1, xpsCur, gateway_seq++,
                                  morePayment, PAYMENT_TOO_FEW_OFFERS, &path);
         }
 

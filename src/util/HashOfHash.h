@@ -4,9 +4,9 @@
 namespace std
 {
 template<>
-struct hash<stellar::uint256>
+struct hash<payshares::uint256>
 {
-  size_t operator()(stellar::uint256 const & x) const noexcept;
+  size_t operator()(payshares::uint256 const & x) const noexcept;
 };
 
 }

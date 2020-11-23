@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -12,7 +12,7 @@
 Another peer out there that we are connected to
 */
 
-namespace stellar
+namespace payshares
 {
 // [testing] Peer that communicates via byte-buffer delivery events queued in
 // in-process io_services.
@@ -87,7 +87,7 @@ class LoopbackPeer : public Peer
     double getReorderProbability() const;
     void setReorderProbability(double d);
 
-    bool recvHello(StellarMessage const& msg);
+    bool recvHello(PaysharesMessage const& msg);
 
     friend class LoopbackPeerConnection;
 };

@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 #include "main/Application.h"
@@ -15,14 +15,14 @@
 #include "database/Database.h"
 #include "ledger/LedgerDelta.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
 
 // Offer that takes multiple other offers and remains
-// Offer selling XLM
-// Offer buying XLM
+// Offer selling XPS
+// Offer buying XPS
 // Offer with transfer rate
 // Offer for more than you have
 // Offer for something you can't hold
@@ -102,7 +102,7 @@ TEST_CASE("create offer", "[tx][offers]")
 
         applyChangeTrust(app, a1, gateway, a1_seq++, "USD", trustLineLimit);
 
-        // need sufficient XLM funds to create an offer
+        // need sufficient XPS funds to create an offer
         applyCreateOfferWithResult(app, delta, 0, a1, idrCur, usdCur, oneone,
                                    100, a1_seq++, CREATE_OFFER_LOW_RESERVE);
 
@@ -172,7 +172,7 @@ TEST_CASE("create offer", "[tx][offers]")
     {
         OfferFrame offer;
 
-        // fund a1 with some IDR and XLM
+        // fund a1 with some IDR and XPS
 
         const int nbOffers = 22;
 

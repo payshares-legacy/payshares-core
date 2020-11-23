@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,7 +18,7 @@ class Meter;
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class LedgerManager;
@@ -101,9 +101,9 @@ class HerderImpl : public Herder, public SCP
     void startRebroadcastTimer();
     void rebroadcast();
 
-    // StellarBallot internal signature/verification
-    void signStellarBallot(StellarBallot& b);
-    bool verifyStellarBallot(StellarBallot const& b);
+    // PaysharesBallot internal signature/verification
+    void signPaysharesBallot(PaysharesBallot& b);
+    bool verifyPaysharesBallot(PaysharesBallot const& b);
 
     void updateSCPCounters();
 
@@ -133,8 +133,8 @@ class HerderImpl : public Herder, public SCP
     struct ConsensusData
     {
         uint64 mConsensusIndex;
-        StellarBallot mConsensusBallot;
-        ConsensusData(uint64 index, StellarBallot const& b)
+        PaysharesBallot mConsensusBallot;
+        ConsensusData(uint64 index, PaysharesBallot const& b)
             : mConsensusIndex(index), mConsensusBallot(b)
         {
         }
@@ -175,7 +175,7 @@ class HerderImpl : public Herder, public SCP
     VirtualTimer mBumpTimer;
     VirtualTimer mRebroadcastTimer;
     Value mCurrentValue;
-    StellarMessage mLastSentMessage;
+    PaysharesMessage mLastSentMessage;
 
     Application& mApp;
     LedgerManager& mLedgerManager;

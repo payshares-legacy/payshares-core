@@ -1,5 +1,5 @@
 
-namespace stellar
+namespace payshares
 {
 
 typedef opaque Signature[64];

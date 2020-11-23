@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -6,7 +6,7 @@
 #include "crypto/Base58.h"
 #include "crypto/Hex.h"
 #include "database/Database.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "ledger/LedgerHeaderFrame.h"
 #include "main/Application.h"
 #include "main/Config.h"
@@ -36,7 +36,7 @@ extern "C" void register_factory_postgresql();
 // NOTE: soci will just crash and not throw
 //  if you misname a column in a query. yay!
 
-namespace stellar
+namespace payshares
 {
 
 using namespace soci;

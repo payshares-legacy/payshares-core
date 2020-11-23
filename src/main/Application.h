@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -16,7 +16,7 @@ namespace medida
 class MetricsRegistry;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class VirtualClock;
@@ -32,7 +32,7 @@ class Database;
 class PersistentState;
 
 /*
- * State of a single instance of the stellar-core application.
+ * State of a single instance of the payshares-core application.
  *
  * Multiple instances may exist in the same process, eg. for the sake of testing
  * by simulating a network of Applications.

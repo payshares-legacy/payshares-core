@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <future>
 
-using namespace stellar;
+using namespace payshares;
 
 namespace BucketTests
 {
@@ -404,8 +404,8 @@ TEST_CASE("single entry bubbling up", "[bucket][bucketbubble]")
         Application::pointer app = Application::create(clock, cfg);
         BucketList bl;
         autocheck::generator<std::vector<LedgerEntry>> liveGen;
-        std::vector<stellar::LedgerKey> emptySet;
-        std::vector<stellar::LedgerEntry> emptySetEntry;
+        std::vector<payshares::LedgerKey> emptySet;
+        std::vector<payshares::LedgerEntry> emptySetEntry;
 
         CLOG(DEBUG, "Bucket") << "Adding single entry in lowest level";
         bl.addBatch(*app, 1, liveGen(1), emptySet);
@@ -474,8 +474,8 @@ TEST_CASE("bucket persistence over app restart", "[bucket][bucketpersist]")
 {
     autocheck::generator<std::vector<LedgerEntry>> liveGen;
     autocheck::generator<LedgerEntry> liveSingleGen;
-    std::vector<stellar::LedgerKey> emptySet;
-    std::vector<stellar::LedgerEntry> emptySetEntry;
+    std::vector<payshares::LedgerKey> emptySet;
+    std::vector<payshares::LedgerEntry> emptySetEntry;
 
     VirtualClock clock;
     Config cfg0(getTestConfig(0, Config::TESTDB_ON_DISK_SQLITE));

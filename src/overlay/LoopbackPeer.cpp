@@ -1,15 +1,15 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "overlay/LoopbackPeer.h"
 #include "util/Logging.h"
 #include "main/Application.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "xdrpp/marshal.h"
 #include "overlay/OverlayManager.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -69,7 +69,7 @@ LoopbackPeer::drop()
 }
 
 bool
-LoopbackPeer::recvHello(StellarMessage const& msg)
+LoopbackPeer::recvHello(PaysharesMessage const& msg)
 {
     if (!Peer::recvHello(msg))
         return false;

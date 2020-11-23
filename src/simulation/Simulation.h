@@ -1,26 +1,26 @@
 
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "main/Config.h"
 #include "main/Application.h"
 #include "overlay/LoopbackPeer.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "util/Timer.h"
 #include "crypto/SHA.h"
 #include "medida/medida.h"
 #include "transactions/TxTests.h"
-#include "generated/Stellar-types.h"
+#include "generated/Payshares-types.h"
 
 #define SIMULATION_CREATE_NODE(N)                                              \
     const Hash v##N##VSeed = sha256("SEED_VALIDATION_SEED_" #N);               \
     const SecretKey v##N##SecretKey = SecretKey::fromSeed(v##N##VSeed);        \
     const Hash v##N##NodeID = v##N##SecretKey.getPublicKey();
 
-namespace stellar
+namespace payshares
 {
 
 class Simulation

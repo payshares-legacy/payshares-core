@@ -1,4 +1,4 @@
-; This file sets emacs variables that are helpful for editing stellar-core
+; This file sets emacs variables that are helpful for editing payshares-core
 
 ((nil . ((flycheck-clang-language-standard . "c++11")
          (flycheck-clang-include-path . ("."

@@ -8,10 +8,10 @@
 * you will also need a VALIDATION_SEED if you plan on participating in SCP
 
 #Administrative commands
-    Interaction with stellar-core is done via an administrative
+    Interaction with payshares-core is done via an administrative
     HTTP endpoint.
     The endpoint is typically accessed by a mid-tier application to
-    submit transactions to the Stellar network, or by administrators.
+    submit transactions to the Payshares network, or by administrators.
 
 #Notes
  It can take up to 5 or 6 minutes to sync to the network anytime you start up.

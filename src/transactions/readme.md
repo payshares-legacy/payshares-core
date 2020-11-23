@@ -6,7 +6,7 @@ two docs.
 Anything that changes the ledger is called a Transaction.
 Transactions have an arbitrary list of operations inside them.
 
-See the "struct Transaction" definition in src/xdr/Stellar-transaction.x
+See the "struct Transaction" definition in src/xdr/Payshares-transaction.x
 for the protocol definition.
 See the TransactionFrame class for the implementation.
 
@@ -145,7 +145,7 @@ historical module for uploading it for long term storage, but also for API
 servers to consume externally.
 
 ##List of operations
-See src/xdr/Stellar-transaction.x for a detailed list of all operations and results.
+See src/xdr/Payshares-transaction.x for a detailed list of all operations and results.
 
 ##Implementation
 For each operation type, there is a matching Frame class: for example, the Payment Operation has a PaymentFrame class associated with it.
@@ -254,7 +254,7 @@ the signatures is greater or equal to the threshold for that level.
   The transaction would have to be signed by both A and B, but the sequence 
   number consumed will be from account Atemp.
 
-  An additional operation "Operation 3" can be included to recover the XLM 
+  An additional operation "Operation 3" can be included to recover the XPS 
   balance from Atemp, "A" must be given "high" weight for this to work: 
   * Operation 3
     * source=_null_

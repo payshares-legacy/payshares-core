@@ -56,7 +56,7 @@
 /stamp-h1
 
 # test output
-/stellar-core-test-*
+/payshares-core-test-*
 
 # Windows specific
 **/Build/*

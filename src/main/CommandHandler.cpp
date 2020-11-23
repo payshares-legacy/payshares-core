@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,12 +23,12 @@
 
 #include <regex>
 #include "transactions/TxTests.h"
-using namespace stellar::txtest;
+using namespace payshares::txtest;
 
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-namespace stellar
+namespace payshares
 {
 CommandHandler::CommandHandler(Application& app) : mApp(app)
 {
@@ -46,12 +46,12 @@ CommandHandler::CommandHandler(Application& app) : mApp(app)
         LOG(INFO) << "Listening on " << ipStr << ":"
                   << mApp.getConfig().HTTP_PORT << " for HTTP requests";
 
-        mServer = stellar::make_unique<http::server::server>(
+        mServer = payshares::make_unique<http::server::server>(
             app.getClock().getIOService(), ipStr, mApp.getConfig().HTTP_PORT);
     }
     else
     {
-        mServer = stellar::make_unique<http::server::server>(
+        mServer = payshares::make_unique<http::server::server>(
             app.getClock().getIOService());
     }
 
@@ -137,7 +137,7 @@ void CommandHandler::testTx(std::string const& params, std::string& retStr)
 void
 CommandHandler::fileNotFound(std::string const& params, std::string& retStr)
 {
-    retStr = "<b>Welcome to stellar-core!</b><p>";
+    retStr = "<b>Welcome to payshares-core!</b><p>";
     retStr += "supported commands:<p/>";
 
     retStr +=
@@ -193,7 +193,7 @@ CommandHandler::manualClose(std::string const& params, std::string& retStr)
     else
     {
         retStr =
-            "Set MANUAL_CLOSE=true in the stellar-core.cfg if you want this "
+            "Set MANUAL_CLOSE=true in the payshares-core.cfg if you want this "
             "behavior";
     }
 }
@@ -446,7 +446,7 @@ CommandHandler::tx(std::string const& params, std::string& retStr)
 
                 if (wasReceived)
                 {
-                    StellarMessage msg;
+                    PaysharesMessage msg;
                     msg.type(TRANSACTION);
                     msg.transaction() = envelope;
                     mApp.getOverlayManager().broadcastMessage(msg);

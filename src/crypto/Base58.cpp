@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -6,14 +6,14 @@
 #include "crypto/SHA.h"
 #include <algorithm>
 
-namespace stellar
+namespace payshares
 {
 
 std::string const bitcoinBase58Alphabet =
     "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
-std::string const stellarBase58Alphabet =
-    "gsphnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCr65jkm8oFqi1tuvAxyz";
+std::string const paysharesBase58Alphabet =
+    "xsphnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCr65jkm8oFqi1tuvAgyz";
 
 // Non-bignum base58 encoding routines adapted from bs58.js which in turn
 // was adapted from
@@ -100,7 +100,7 @@ baseDecode(std::string const& alphabet, std::string const& encoded)
         if (n == 0xffff)
         {
             throw std::runtime_error(
-                "unknown character in stellar::baseDecode");
+                "unknown character in payshares::baseDecode");
         }
 
         bytes[0] += n;
@@ -170,14 +170,14 @@ baseCheckDecode(std::string const& alphabet, std::string const& encoded)
 std::string
 toBase58Check(Base58CheckVersionByte ver, ByteSlice const& bytes)
 {
-    return baseCheckEncode(stellarBase58Alphabet, static_cast<uint8_t>(ver),
+    return baseCheckEncode(paysharesBase58Alphabet, static_cast<uint8_t>(ver),
                            bytes);
 }
 
 std::pair<Base58CheckVersionByte, std::vector<uint8_t>>
 fromBase58Check(std::string const& encoded)
 {
-    auto pair = baseCheckDecode(stellarBase58Alphabet, encoded);
+    auto pair = baseCheckDecode(paysharesBase58Alphabet, encoded);
     return std::make_pair(static_cast<Base58CheckVersionByte>(pair.first),
                           pair.second);
 }

@@ -12,7 +12,7 @@
 set -e
 
 echo "killing all nodes"
-killall -q -9 stellar-core || true
+killall -q -9 payshares-core || true
 
 if which realpath >/dev/null
 then
@@ -30,10 +30,10 @@ else
     exit 1
 fi
 
-ST=$(realpath ../../bin/stellar-core)
+ST=$(realpath ../../bin/payshares-core)
 if [ ! -e $ST ]
 then
-    exit "can't find stellar-core binary at '$ST'"
+    exit "can't find payshares-core binary at '$ST'"
 fi
 
 VSEC0=sfSXhEWL4YLthoeJL7GUYz7MNu7KM5TkQUgETmg5SQPWy94i5XZ
@@ -84,7 +84,7 @@ do
     PORTB=$(( $baseport + $b ))
 
     cat >node$i/node.cfg <<EOF
-LOG_FILE_PATH="stellar.log"
+LOG_FILE_PATH="payshares.log"
 RUN_STANDALONE=false
 PEER_PORT=${PORT}
 HTTP_PORT=${HTTP_PORT}
@@ -95,7 +95,7 @@ KNOWN_PEERS=["127.0.0.1:${PORTA}","127.0.0.1:${PORTB}"]
 QUORUM_THRESHOLD=2
 QUORUM_SET=["${!VPUB}", "${!VPUBA}", "${!VPUBB}"]
 ARTIFICIALLY_ACCELERATE_TIME_FOR_TESTING=true
-DATABASE="sqlite3://stellar.db"
+DATABASE="sqlite3://payshares.db"
 COMMANDS=["ll?level=info"]
 
 [HISTORY.archive${i}]
@@ -123,13 +123,13 @@ echo "nodes initialized, initializing history archives"
 for i in 0 1 2; do (cd node$i && $ST --conf node.cfg --newhist archive$i); done
 
 rm node*/*.log
-for i in 0 1 2; do touch node$i/stellar.log; done
+for i in 0 1 2; do touch node$i/payshares.log; done
 
 echo "nodes initialized, running quietly + multitail"
 (cd node0 && $ST --conf node.cfg --ll info >/dev/null 2>&1) &
 (cd node1 && $ST --conf node.cfg --ll info >/dev/null 2>&1) &
 (cd node2 && sleep 30 && $ST --conf node.cfg --ll info >/dev/null 2>&1) &
-multitail --config multitail.conf -CS stellar node{0,1,2}/stellar.log
+multitail --config multitail.conf -CS payshares node{0,1,2}/payshares.log
 
 echo "killing all nodes"
-killall -q -9 stellar-core || true
+killall -q -9 payshares-core || true

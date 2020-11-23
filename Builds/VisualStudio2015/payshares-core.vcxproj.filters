@@ -455,7 +455,7 @@
     <ClInclude Include="..\..\src\overlay\OverlayManagerImpl.h">
       <Filter>overlay</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\generated\StellarXDR.h">
+    <ClInclude Include="..\..\src\generated\PaysharesXDR.h">
       <Filter>overlay\generated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\main\Config.h">
@@ -772,7 +772,7 @@
     <None Include="..\..\docs\readme.md">
       <Filter>docs</Filter>
     </None>
-    <None Include="..\..\docs\stellar-core_example.cfg">
+    <None Include="..\..\docs\payshares-core_example.cfg">
       <Filter>docs</Filter>
     </None>
     <None Include="..\..\src\herder\readme.md">
@@ -780,22 +780,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\src\overlay\StellarXDR.x">
+    <CustomBuild Include="..\..\src\overlay\PaysharesXDR.x">
       <Filter>overlay</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-transaction.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-transaction.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-types.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-types.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-overlay.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-overlay.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger-entries.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger-entries.x">
       <Filter>xdr</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\src\scp\SCPXDR.x">

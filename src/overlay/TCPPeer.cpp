@@ -1,11 +1,11 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "overlay/TCPPeer.h"
 #include "util/Logging.h"
 #include "main/Application.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "xdrpp/marshal.h"
 #include "overlay/OverlayManager.h"
 #include "database/Database.h"
@@ -19,7 +19,7 @@
 
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -338,13 +338,13 @@ TCPPeer::recvMessage()
     xdr::xdr_get g(mIncomingBody.data(),
                    mIncomingBody.data() + mIncomingBody.size());
     mMessageRead.Mark();
-    StellarMessage sm;
+    PaysharesMessage sm;
     xdr::xdr_argpack_archive(g, sm);
     Peer::recvMessage(sm);
 }
 
 bool
-TCPPeer::recvHello(StellarMessage const& msg)
+TCPPeer::recvHello(PaysharesMessage const& msg)
 {
     if (!Peer::recvHello(msg))
         return false;

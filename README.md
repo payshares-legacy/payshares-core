@@ -1,17 +1,17 @@
-[![Build Status](https://travis-ci.org/stellar/stellar-core.svg?branch=auto)]
+[![Build Status](https://travis-ci.org/payshares/payshares-core.svg?branch=auto)]
 
 # Note this code is pre-beta. 
 It is definitely not ready yet for production.
  
-#stellar-core
+#payshares-core
 
-Stellar-core is a C++ implementation of the [Stellar Consensus Protocol](https://github.com/stellar/stellar-core/blob/master/src/scp/readme.md) that maintains a local copy of the ledger and syncs with other instances of stellar-core on the network. Learn more by reading the [overview document](https://github.com/stellar/stellar-core/blob/master/docs/readme.md).
+Payshares-core is a C++ implementation of the [Payshares Consensus Protocol](https://github.com/payshares/payshares-core/blob/master/src/scp/readme.md) that maintains a local copy of the ledger and syncs with other instances of payshares-core on the network. Learn more by reading the [overview document](https://github.com/payshares/payshares-core/blob/master/docs/readme.md).
 
 # Documentation
 
 Documentation of the code's layout and abstractions, as well as for the
 functionality available, can be found in
-[`./docs`](https://github.com/stellar/stellar-core/tree/master/docs).
+[`./docs`](https://github.com/payshares/payshares-core/tree/master/docs).
 
 # Contributing
 
@@ -33,13 +33,13 @@ Please sign the [Contributor License Agreement](http://goo.gl/forms/f2nhGi537n).
 # Running tests
 
 run tests with:
-  `bin/stellar-core --test`
+  `bin/payshares-core --test`
 
 run one test with:
-  `bin/stellar-core --test  testName`
+  `bin/payshares-core --test  testName`
 
 run one test category with:
-  `bin/stellar-core --test '[categoryName]'`
+  `bin/payshares-core --test '[categoryName]'`
 
 Categories (or tags) can be combined: AND-ed (by juxtaposition) or OR-ed (by comma-listing).
 
@@ -63,7 +63,7 @@ Now, create a few test databases:
 We adopt the convention of tagging a stress-test for subsystem foo as [foo-stress][stress][hide].
 
 Then, running
-* `stellar-core --test [stress]` will run all the stress tests,
-* `stellar-core --test [foo-stress]` will run the stress tests for subsystem foo alone, and
-* neither `stellar-core --test` nor `stellar-core --test [foo]` will run stress tests.
+* `payshares-core --test [stress]` will run all the stress tests,
+* `payshares-core --test [foo-stress]` will run the stress tests for subsystem foo alone, and
+* neither `payshares-core --test` nor `payshares-core --test [foo]` will run stress tests.
 

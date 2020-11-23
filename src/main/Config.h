@@ -1,9 +1,9 @@
 #pragma once
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include <string>
 #include <memory>
 #include <map>
@@ -11,7 +11,7 @@
 
 #define DEFAULT_PEER_PORT 39133
 
-namespace stellar
+namespace payshares
 {
 class HistoryArchive;
 
@@ -34,7 +34,7 @@ class Config : public std::enable_shared_from_this<Config>
 
     // application config
 
-    // The default way stellar-core starts is to load the state from disk and
+    // The default way payshares-core starts is to load the state from disk and
     // catch
     // up to the network before starting SCP.
     // If you need different behavior you need to use --newdb or --force-scp

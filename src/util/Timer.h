@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,11 +17,11 @@
 #include <functional>
 #include <ctime>
 
-namespace stellar
+namespace payshares
 {
 
 /**
- * The purpose of this module is to provide "timing service" to stellar-core;
+ * The purpose of this module is to provide "timing service" to payshares-core;
  *but in
  * such a way that strongly favours the use of virtual time over real
  * time. Ideally there will only ever be one use of the "real" wall clock in the

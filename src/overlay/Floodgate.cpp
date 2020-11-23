@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -12,10 +12,10 @@
 #include "medida/metrics_registry.h"
 #include "xdrpp/marshal.h"
 
-namespace stellar
+namespace payshares
 {
 
-FloodRecord::FloodRecord(StellarMessage const& msg, uint32_t ledger,
+FloodRecord::FloodRecord(PaysharesMessage const& msg, uint32_t ledger,
                          Peer::pointer peer)
     : mLedgerSeq(ledger), mMessage(msg)
 {
@@ -50,7 +50,7 @@ Floodgate::clearBelow(uint32_t currentLedger)
 }
 
 bool
-Floodgate::addRecord(StellarMessage const& msg, Peer::pointer peer)
+Floodgate::addRecord(PaysharesMessage const& msg, Peer::pointer peer)
 {
     Hash index = sha256(xdr::xdr_to_opaque(msg));
     auto result = mFloodMap.find(index);
@@ -70,7 +70,7 @@ Floodgate::addRecord(StellarMessage const& msg, Peer::pointer peer)
 
 // send message to anyone you haven't gotten it from
 void
-Floodgate::broadcast(StellarMessage const& msg, bool force)
+Floodgate::broadcast(PaysharesMessage const& msg, bool force)
 {
     Hash index = sha256(xdr::xdr_to_opaque(msg));
     auto result = mFloodMap.find(index);

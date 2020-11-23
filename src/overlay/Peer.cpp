@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -7,7 +7,7 @@
 #include "crypto/Hex.h"
 #include "crypto/SHA.h"
 #include "database/Database.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "herder/Herder.h"
 #include "herder/TxSetFrame.h"
 #include "main/Application.h"
@@ -24,7 +24,7 @@
 // LATER: need to add some way of docking peers that are misbehaving by sending
 // you bad data
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -44,7 +44,7 @@ Peer::sendHello()
 {
     CLOG(DEBUG,"Overlay") << "Peer::sendHello to " << toString();
 
-    StellarMessage msg;
+    PaysharesMessage msg;
     msg.type(HELLO);
     msg.hello().protocolVersion = mApp.getConfig().PROTOCOL_VERSION;
     msg.hello().versionStr = mApp.getConfig().VERSION_STR;
@@ -83,7 +83,7 @@ Peer::connectHandler(asio::error_code const& error)
 void
 Peer::sendDontHave(MessageType type, uint256 const& itemID)
 {
-    StellarMessage msg;
+    PaysharesMessage msg;
     msg.type(DONT_HAVE);
     msg.dontHave().reqHash = itemID;
     msg.dontHave().type = type;
@@ -94,7 +94,7 @@ Peer::sendDontHave(MessageType type, uint256 const& itemID)
 void
 Peer::sendSCPQuorumSet(SCPQuorumSet const & qSet)
 {
-    StellarMessage msg;
+    PaysharesMessage msg;
     msg.type(SCP_QUORUMSET);
     msg.qSet() = qSet;
 
@@ -103,7 +103,7 @@ Peer::sendSCPQuorumSet(SCPQuorumSet const & qSet)
 void
 Peer::sendGetTxSet(uint256 const& setID)
 {
-    StellarMessage newMsg;
+    PaysharesMessage newMsg;
     newMsg.type(GET_TX_SET);
     newMsg.txSetHash() = setID;
 
@@ -114,7 +114,7 @@ Peer::sendGetQuorumSet(uint256 const& setID)
 {
     CLOG(TRACE, "Overlay") << "Get quorum set: " << hexAbbrev(setID);
 
-    StellarMessage newMsg;
+    PaysharesMessage newMsg;
     newMsg.type(GET_SCP_QUORUMSET);
     newMsg.qSetHash() = setID;
 
@@ -128,7 +128,7 @@ Peer::sendPeers()
     vector<PeerRecord> peerList;
     PeerRecord::loadPeerRecords(mApp.getDatabase(), 50, mApp.getClock().now(),
                                 peerList);
-    StellarMessage newMsg;
+    PaysharesMessage newMsg;
     newMsg.type(PEERS);
     newMsg.peers().resize(xdr::size32(peerList.size()));
     for (size_t n = 0; n < peerList.size(); n++)
@@ -142,7 +142,7 @@ Peer::sendPeers()
 }
 
 void
-Peer::sendMessage(StellarMessage const& msg)
+Peer::sendMessage(PaysharesMessage const& msg)
 {
     CLOG(TRACE, "Overlay") << "("
                            << binToHex(mApp.getConfig().PEER_PUBLIC_KEY)
@@ -156,101 +156,101 @@ void
 Peer::recvMessage(xdr::msg_ptr const& msg)
 {
     CLOG(TRACE, "Overlay") << "received xdr::msg_ptr";
-    StellarMessage sm;
+    PaysharesMessage sm;
     xdr::xdr_from_msg(msg, sm);
     recvMessage(sm);
 }
 
 void
-Peer::recvMessage(StellarMessage const& stellarMsg)
+Peer::recvMessage(PaysharesMessage const& paysharesMsg)
 {
     CLOG(TRACE, "Overlay") << "("
                            << binToHex(mApp.getConfig().PEER_PUBLIC_KEY)
                                   .substr(0, 6)
-                           << ")recv: " << stellarMsg.type()
+                           << ")recv: " << paysharesMsg.type()
                            << " from:" << hexAbbrev(mPeerID);
 
     if (mState < GOT_HELLO &&
-        ((stellarMsg.type() != HELLO) && (stellarMsg.type() != PEERS)))
+        ((paysharesMsg.type() != HELLO) && (paysharesMsg.type() != PEERS)))
     {
-        CLOG(WARNING, "Overlay") << "recv: " << stellarMsg.type()
+        CLOG(WARNING, "Overlay") << "recv: " << paysharesMsg.type()
                                  << " before hello";
         drop();
         return;
     }
 
-    switch (stellarMsg.type())
+    switch (paysharesMsg.type())
     {
     case ERROR_MSG:
     {
-        recvError(stellarMsg);
+        recvError(paysharesMsg);
     }
     break;
 
     case HELLO:
     {
-        this->recvHello(stellarMsg);
+        this->recvHello(paysharesMsg);
     }
     break;
 
     case DONT_HAVE:
     {
-        recvDontHave(stellarMsg);
+        recvDontHave(paysharesMsg);
     }
     break;
 
     case GET_PEERS:
     {
-        recvGetPeers(stellarMsg);
+        recvGetPeers(paysharesMsg);
     }
     break;
 
     case PEERS:
     {
-        recvPeers(stellarMsg);
+        recvPeers(paysharesMsg);
     }
     break;
 
     case GET_TX_SET:
     {
-        recvGetTxSet(stellarMsg);
+        recvGetTxSet(paysharesMsg);
     }
     break;
 
     case TX_SET:
     {
-        recvTxSet(stellarMsg);
+        recvTxSet(paysharesMsg);
     }
     break;
 
     case TRANSACTION:
     {
-        recvTransaction(stellarMsg);
+        recvTransaction(paysharesMsg);
     }
     break;
 
     case GET_SCP_QUORUMSET:
     {
-        recvGetSCPQuorumSet(stellarMsg);
+        recvGetSCPQuorumSet(paysharesMsg);
     }
     break;
 
     case SCP_QUORUMSET:
     {
-        recvSCPQuorumSet(stellarMsg);
+        recvSCPQuorumSet(paysharesMsg);
     }
     break;
 
     case SCP_MESSAGE:
     {
-        recvSCPMessage(stellarMsg);
+        recvSCPMessage(paysharesMsg);
     }
     break;
     }
 }
 
 void
-Peer::recvDontHave(StellarMessage const& msg)
+Peer::recvDontHave(PaysharesMessage const& msg)
 {
     switch (msg.dontHave().type)
     {
@@ -268,12 +268,12 @@ Peer::recvDontHave(StellarMessage const& msg)
 }
 
 void
-Peer::recvGetTxSet(StellarMessage const& msg)
+Peer::recvGetTxSet(PaysharesMessage const& msg)
 {
     auto self = shared_from_this();
     if (auto txSet = mApp.getOverlayManager().getTxSetFetcher().get(msg.txSetHash()))
     {
-        StellarMessage newMsg;
+        PaysharesMessage newMsg;
         newMsg.type(TX_SET);
         txSet->toXDR(newMsg.txSet());
 
@@ -285,14 +285,14 @@ Peer::recvGetTxSet(StellarMessage const& msg)
 }
 
 void
-Peer::recvTxSet(StellarMessage const& msg)
+Peer::recvTxSet(PaysharesMessage const& msg)
 {
     auto hash = TxSetFrame(msg.txSet()).getContentsHash();
     mApp.getOverlayManager().getTxSetFetcher().recv(hash, msg.txSet());
 }
 
 void
-Peer::recvTransaction(StellarMessage const& msg)
+Peer::recvTransaction(PaysharesMessage const& msg)
 {
     TransactionFramePtr transaction =
         TransactionFrame::makeTransactionFromWire(msg.transaction());
@@ -309,7 +309,7 @@ Peer::recvTransaction(StellarMessage const& msg)
 }
 
 void
-Peer::recvGetSCPQuorumSet(StellarMessage const& msg)
+Peer::recvGetSCPQuorumSet(PaysharesMessage const& msg)
 {
     auto localQSet = mApp.getConfig().quorumSet();
     auto localHash = sha256(xdr::xdr_to_opaque(localQSet));
@@ -329,14 +329,14 @@ Peer::recvGetSCPQuorumSet(StellarMessage const& msg)
     }
 }
 void
-Peer::recvSCPQuorumSet(StellarMessage const& msg)
+Peer::recvSCPQuorumSet(PaysharesMessage const& msg)
 {
     auto hash = sha256(xdr::xdr_to_opaque(msg.qSet()));
     mApp.getOverlayManager().getQuorumSetFetcher().recv(hash, msg.qSet());
 }
 
 void
-Peer::recvSCPMessage(StellarMessage const& msg)
+Peer::recvSCPMessage(PaysharesMessage const& msg)
 {
     SCPEnvelope envelope = msg.envelope();
     CLOG(TRACE, "Overlay") << "recvSCPMessage qset: "
@@ -356,13 +356,13 @@ Peer::recvSCPMessage(StellarMessage const& msg)
 }
 
 void
-Peer::recvError(StellarMessage const& msg)
+Peer::recvError(PaysharesMessage const& msg)
 {
     // TODO.4
 }
 
 bool
-Peer::recvHello(StellarMessage const& msg)
+Peer::recvHello(PaysharesMessage const& msg)
 {
     if (msg.hello().peerID == mApp.getConfig().PEER_PUBLIC_KEY)
     {
@@ -390,13 +390,13 @@ Peer::recvHello(StellarMessage const& msg)
 }
 
 void
-Peer::recvGetPeers(StellarMessage const& msg)
+Peer::recvGetPeers(PaysharesMessage const& msg)
 {
     sendPeers();
 }
 
 void
-Peer::recvPeers(StellarMessage const& msg)
+Peer::recvPeers(PaysharesMessage const& msg)
 {
     for (auto peer : msg.peers())
     {

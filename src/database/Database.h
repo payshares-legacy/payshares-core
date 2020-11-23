@@ -1,12 +1,12 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include <string>
 #include <soci.h>
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "ledger/AccountFrame.h"
 #include "ledger/OfferFrame.h"
 #include "ledger/TrustFrame.h"
@@ -20,7 +20,7 @@ class Timer;
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class SQLLogContext;
@@ -126,7 +126,7 @@ class Database : NonMovableOrCopyable
     bool canUsePool() const;
 
     // Drop and recreate all tables in the database target. This is called
-    // by the --newdb command-line flag on stellar-core.
+    // by the --newdb command-line flag on payshares-core.
     void initialize();
 
     // Access the underlying SOCI session object

@@ -1,18 +1,18 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "util/asio.h"
 #include "xdrpp/message.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "generated/SCPXDR.h"
 #include "util/Timer.h"
 #include "database/Database.h"
 #include "util/NonCopyable.h"
 
-namespace stellar
+namespace payshares
 {
 
 typedef std::shared_ptr<SCPQuorumSet> SCPQuorumSetPtr;
@@ -53,22 +53,22 @@ class Peer : public std::enable_shared_from_this<Peer>, public NonMovableOrCopya
     std::string mRemoteVersion;
     uint32_t mRemoteProtocolVersion;
     unsigned short mRemoteListeningPort;
-    void recvMessage(StellarMessage const& msg);
+    void recvMessage(PaysharesMessage const& msg);
     void recvMessage(xdr::msg_ptr const& xdrBytes);
 
-    virtual void recvError(StellarMessage const& msg);
+    virtual void recvError(PaysharesMessage const& msg);
     // returns false if we should drop this peer
-    virtual bool recvHello(StellarMessage const& msg);
-    void recvDontHave(StellarMessage const& msg);
-    void recvGetPeers(StellarMessage const& msg);
-    void recvPeers(StellarMessage const& msg);
+    virtual bool recvHello(PaysharesMessage const& msg);
+    void recvDontHave(PaysharesMessage const& msg);
+    void recvGetPeers(PaysharesMessage const& msg);
+    void recvPeers(PaysharesMessage const& msg);
 
-    void recvGetTxSet(StellarMessage const& msg);
-    void recvTxSet(StellarMessage const& msg);
-    void recvTransaction(StellarMessage const& msg);
-    void recvGetSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPMessage(StellarMessage const& msg);
+    void recvGetTxSet(PaysharesMessage const& msg);
+    void recvTxSet(PaysharesMessage const& msg);
+    void recvTransaction(PaysharesMessage const& msg);
+    void recvGetSCPQuorumSet(PaysharesMessage const& msg);
+    void recvSCPQuorumSet(PaysharesMessage const& msg);
+    void recvSCPMessage(PaysharesMessage const& msg);
 
     void sendHello();
     void sendSCPQuorumSet(SCPQuorumSet const & qSet);
@@ -100,7 +100,7 @@ class Peer : public std::enable_shared_from_this<Peer>, public NonMovableOrCopya
     void sendGetTxSet(uint256 const& setID);
     void sendGetQuorumSet(uint256 const& setID);
 
-    void sendMessage(StellarMessage const& msg);
+    void sendMessage(PaysharesMessage const& msg);
 
     PeerRole
     getRole() const

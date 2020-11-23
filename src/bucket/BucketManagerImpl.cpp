@@ -1,9 +1,9 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "bucket/BucketManagerImpl.h"
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "main/Application.h"
 #include "main/Config.h"
 #include "bucket/BucketList.h"
@@ -23,7 +23,7 @@
 #include "medida/meter.h"
 #include "medida/timer.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<BucketManager>
@@ -71,7 +71,7 @@ BucketManagerImpl::BucketManagerImpl(Application& app)
 {
 }
 
-const std::string BucketManagerImpl::kLockFilename = "stellar-core.lock";
+const std::string BucketManagerImpl::kLockFilename = "payshares-core.lock";
 
 static std::string
 bucketBasename(std::string const& bucketHexHash)

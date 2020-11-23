@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -16,12 +16,12 @@
 #include "transactions/TxTests.h"
 #include "transactions/TransactionFrame.h"
 
-using namespace stellar;
+using namespace payshares;
 using namespace std;
 using namespace soci;
 using namespace txtest;
 
-namespace stellar
+namespace payshares
 {
 
 class PeerStub : public Peer
@@ -145,14 +145,14 @@ class OverlayManagerTests
         SecretKey c = getAccount("c");
         SecretKey d = getAccount("d");
 
-        StellarMessage AtoC = createPaymentTx(a, b, 1, 10)->toStellarMessage();
+        PaysharesMessage AtoC = createPaymentTx(a, b, 1, 10)->toPaysharesMessage();
         pm.recvFloodedMsg(AtoC, *(pm.mPeers.begin() + 2));
         pm.broadcastMessage(AtoC);
         vector<int> expected{1, 1, 0, 1, 1};
         REQUIRE(sentCounts(pm) == expected);
         pm.broadcastMessage(AtoC);
         REQUIRE(sentCounts(pm) == expected);
-        StellarMessage CtoD = createPaymentTx(c, d, 1, 10)->toStellarMessage();
+        PaysharesMessage CtoD = createPaymentTx(c, d, 1, 10)->toPaysharesMessage();
         pm.broadcastMessage(CtoD);
         vector<int> expectedFinal{2, 2, 1, 2, 2};
         REQUIRE(sentCounts(pm) == expectedFinal);

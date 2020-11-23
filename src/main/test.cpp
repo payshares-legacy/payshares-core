@@ -1,9 +1,9 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "test.h"
-#include "generated/StellarCoreVersion.h"
+#include "generated/PaysharesCoreVersion.h"
 #include "main/Config.h"
 #include "util/make_unique.h"
 #include <time.h>
@@ -23,7 +23,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "lib/catch.hpp"
 
-namespace stellar
+namespace payshares
 {
 
 static std::vector<std::string> gTestMetrics;
@@ -50,17 +50,17 @@ getTestConfig(int instanceNumber, Config::TestDbMode mode)
 
     if (!cfgs[instanceNumber])
     {
-        gTestRoots.emplace_back("stellar-core-test");
+        gTestRoots.emplace_back("payshares-core-test");
 
         std::string rootDir = gTestRoots.back().getName();
         rootDir += "/";
 
-        cfgs[instanceNumber] = stellar::make_unique<Config>();
+        cfgs[instanceNumber] = payshares::make_unique<Config>();
         Config& thisConfig = *cfgs[instanceNumber];
 
         std::ostringstream sstream;
 
-        sstream << "stellar" << instanceNumber << ".log";
+        sstream << "payshares" << instanceNumber << ".log";
         thisConfig.LOG_FILE_PATH = sstream.str();
         thisConfig.BUCKET_DIR_PATH = rootDir + "bucket";
         thisConfig.TMP_DIR_PATH = rootDir + "tmp";
@@ -119,7 +119,7 @@ test(int argc, char* const* argv, el::Level ll,
     Logging::setFmt("<test>");
     Logging::setLoggingToFile(cfg.LOG_FILE_PATH);
     Logging::setLogLevel(ll, nullptr);
-    LOG(INFO) << "Testing stellar-core " << STELLAR_CORE_VERSION;
+    LOG(INFO) << "Testing payshares-core " << STELLAR_CORE_VERSION;
     LOG(INFO) << "Logging to " << cfg.LOG_FILE_PATH;
 
     return Catch::Session().run(argc, argv);

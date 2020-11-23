@@ -1,10 +1,10 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Payshares Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "generated/StellarXDR.h"
+#include "generated/PaysharesXDR.h"
 #include "overlay/Peer.h"
 #include <map>
 
@@ -26,7 +26,7 @@ namespace medida
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class FloodRecord
@@ -35,10 +35,10 @@ class FloodRecord
     typedef std::shared_ptr<FloodRecord> pointer;
 
     uint32_t mLedgerSeq;
-    StellarMessage mMessage;
+    PaysharesMessage mMessage;
     std::vector<Peer::pointer> mPeersTold;
 
-    FloodRecord(StellarMessage const& msg, uint32_t ledger, Peer::pointer peer);
+    FloodRecord(PaysharesMessage const& msg, uint32_t ledger, Peer::pointer peer);
 };
 
 class Floodgate
@@ -52,8 +52,8 @@ class Floodgate
     // Floodgate will be cleared after every ledger close
     void clearBelow(uint32_t currentLedger);
     // returns true if this is a new record
-    bool addRecord(StellarMessage const& msg, Peer::pointer fromPeer);
+    bool addRecord(PaysharesMessage const& msg, Peer::pointer fromPeer);
 
-    void broadcast(StellarMessage const& msg, bool force);
+    void broadcast(PaysharesMessage const& msg, bool force);
 };
 }

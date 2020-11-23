@@ -1,12 +1,12 @@
 # -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# Copyright 2015 Stellar Development Foundation and contributors. Licensed
+# Copyright 2015 Payshares Development Foundation and contributors. Licensed
 # under the Apache License, Version 2.0. See the COPYING file at the root
 # of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 AC_PREREQ([2.68])
-AC_INIT([stellar-core],[0.1],[],[],[http://www.stellar.org])
+AC_INIT([payshares-core],[0.1],[],[],[http://www.payshares.org])
 AM_INIT_AUTOMAKE([-Wall subdir-objects silent-rules])
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([configure.ac])
