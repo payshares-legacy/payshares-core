@@ -3,7 +3,7 @@
 # Note this code is pre-beta. 
 It is definitely not ready yet for production.
  
-#payshares-core
+# payshares-core
 
 Payshares-core is a C++ implementation of the [Payshares Consensus Protocol](https://github.com/payshares/payshares-core/blob/master/src/scp/readme.md) that maintains a local copy of the ledger and syncs with other instances of payshares-core on the network. Learn more by reading the [overview document](https://github.com/payshares/payshares-core/blob/master/docs/readme.md).
 
