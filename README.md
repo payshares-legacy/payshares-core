@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/payshares/payshares-core.svg?branch=auto)]
+[![Build Status](https://travis-ci.org/payshares/payshares-core.svg)](https://travis-ci.org/payshares/payshares-core)
 
 # Note this code is pre-beta. 
 It is definitely not ready yet for production.
